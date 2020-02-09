@@ -7,7 +7,7 @@ defmodule Tetris.BrickTest do
     assert new_brick().name == :i
   end
 
-  test "Creats a new random brick" do
+  test "Creates a new random brick" do
     actual = new_random()
 
     assert actual.name in [:i, :l, :z, :t, :o]
