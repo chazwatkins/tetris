@@ -15,15 +15,9 @@ defmodule Tetris.Brick do
     }
   end
 
-  def random_name() do
-    Enum.random(~w(i l z o t)a)
-  end
+  def random_name(), do: Enum.random(~w(i l z o t)a)
 
-  def random_rotation() do
-    Enum.random([0, 90, 180, 270])
-  end
+  def random_rotation(), do: Enum.random([0, 90, 180, 270])
 
-  def random_reflection() do
-    Enum.random([true, false])
-  end
+  def random_reflection(), do: Enum.random([true, false])
 end
