@@ -10,6 +10,11 @@ defmodule TetrisWeb.Endpoint do
     signing_salt: "4gw4Khsi"
   ]
 
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [
+      connect_info: [session: @session_options]
+    ]
+
   socket "/socket", TetrisWeb.UserSocket,
     websocket: true,
     longpoll: false

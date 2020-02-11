@@ -12,7 +12,10 @@ config :tetris, TetrisWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "yaA6cKoVQ06Fw/C46n/xy12mc4Ov2LpzO/xS7m7Cx1pL6DPOyegLbBi2h6qJvhtL",
   render_errors: [view: TetrisWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Tetris.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Tetris.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "hG+LNtiRWOrDKDL89TQ7dU4PulXRJ97a"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
