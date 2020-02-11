@@ -1,9 +1,9 @@
-defmodule Tetris.MixProject do
+defmodule TetrisUI.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :tetris,
+      app: :tetris_ui,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -18,7 +18,7 @@ defmodule Tetris.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Tetris.Application, []},
+      mod: {TetrisUI.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -40,7 +40,8 @@ defmodule Tetris.MixProject do
       {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.1"},
       {:phoenix_live_view, "~> 0.6.0"},
-      {:floki, ">= 0.0.0", only: :test}
+      {:floki, ">= 0.0.0", only: :test},
+      {:tetris, path: "./tetris"}
     ]
   end
 end

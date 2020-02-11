@@ -8,10 +8,10 @@
 use Mix.Config
 
 # Configures the endpoint
-config :tetris, TetrisWeb.Endpoint,
+config :tetris_ui, TetrisUIWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "yaA6cKoVQ06Fw/C46n/xy12mc4Ov2LpzO/xS7m7Cx1pL6DPOyegLbBi2h6qJvhtL",
-  render_errors: [view: TetrisWeb.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: TetrisUIWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Tetris.PubSub, adapter: Phoenix.PubSub.PG2],
   live_view: [
     signing_salt: "hG+LNtiRWOrDKDL89TQ7dU4PulXRJ97a"
