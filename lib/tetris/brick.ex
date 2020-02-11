@@ -1,4 +1,6 @@
 defmodule Tetris.Brick do
+  alias Tetris.Points
+
   defstruct name: :i,
             location: {40, 0},
             rotation: 0,
@@ -59,10 +61,10 @@ defmodule Tetris.Brick do
 
   def shape(%{name: :i}) do
     [
-      {2, 1},
+      {1, 2},
       {2, 2},
-      {2, 3},
-      {2, 4}
+      {3, 2},
+      {4, 2}
     ]
   end
 
@@ -91,5 +93,40 @@ defmodule Tetris.Brick do
       {3, 2},
       {2, 3}
     ]
+  end
+
+  def prepare(brick) do
+    brick
+    |> shape()
+    |> Points.rotate(brick.rotation)
+    |> Points.mirror(brick.reflection)
+  end
+
+  def to_string(brick) do
+    brick
+    |> prepare()
+    |> Points.to_string()
+  end
+
+  def print(brick) do
+    brick
+    |> prepare()
+    |> Points.print()
+
+    brick
+  end
+
+  defimpl Inspect, for: Tetris.Brick do
+    import Inspect.Algebra
+
+    def inspect(brick, _opts) do
+      concat([
+        Tetris.Brick.to_string(brick),
+        "\n",
+        inspect(brick.location),
+        inspect(brick.reflection),
+        inspect(brick.rotation)
+      ])
+    end
   end
 end

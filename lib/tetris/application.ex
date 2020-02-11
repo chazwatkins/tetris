@@ -8,8 +8,6 @@ defmodule Tetris.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
-      Tetris.Repo,
       # Start the endpoint when the application starts
       TetrisWeb.Endpoint
       # Starts a worker by calling: Tetris.Worker.start_link(arg)

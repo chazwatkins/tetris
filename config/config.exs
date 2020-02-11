@@ -7,13 +7,10 @@
 # General application configuration
 use Mix.Config
 
-config :tetris,
-  ecto_repos: [Tetris.Repo]
-
 # Configures the endpoint
 config :tetris, TetrisWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "NGaY5Uha4h/K+v9JrlESCCDWrIegfFVxYOlkZP/zOAhN1fmqF0P1Rtwbj1s4JZrR",
+  secret_key_base: "yaA6cKoVQ06Fw/C46n/xy12mc4Ov2LpzO/xS7m7Cx1pL6DPOyegLbBi2h6qJvhtL",
   render_errors: [view: TetrisWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Tetris.PubSub, adapter: Phoenix.PubSub.PG2]
 
