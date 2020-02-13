@@ -39,7 +39,7 @@ defmodule TetrisUI.MixProject do
       {:gettext, "~> 0.17"},
       {:jason, "~> 1.1"},
       {:plug_cowboy, "~> 2.1"},
-      {:phoenix_live_view, "~> 0.6.0"},
+      {:phoenix_live_view, "~> 0.7.0"},
       {:floki, ">= 0.0.0", only: :test},
       {:tetris, path: "./tetris"}
     ]
