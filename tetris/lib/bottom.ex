@@ -1,7 +1,7 @@
 defmodule Tetris.Bottom do
   def merge(bottom, points) do
     points
-    |> Stream.map(fn {x, y, c} -> {{x, y}, {x, y, c}} end)
+    |> Enum.map(fn {x, y, c} -> {{x, y}, {x, y, c}} end)
     |> Enum.into(bottom)
   end
 
