@@ -2,7 +2,7 @@ defmodule Tetris.Brick do
   alias Tetris.Points
 
   defstruct name: :i,
-            location: {40, 0},
+            location: {3, -3},
             rotation: 0,
             reflection: false
 
@@ -11,7 +11,7 @@ defmodule Tetris.Brick do
   def new_random() do
     attributes = [
       name: random_name(),
-      location: {40, 0},
+      location: {3, -3},
       rotation: random_rotation(),
       reflection: random_reflection()
     ]

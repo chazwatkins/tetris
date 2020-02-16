@@ -26,7 +26,7 @@ defmodule Tetris.BrickTest do
       |> spin_90()
       |> spin_90()
 
-    assert actual.location == {41, 1}
+    assert actual.location == {4, -2}
     assert actual.rotation == 180
   end
 
