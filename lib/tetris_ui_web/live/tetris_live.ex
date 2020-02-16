@@ -10,13 +10,22 @@ defmodule TetrisUIWeb.TetrisLive do
     {:ok, new_game(socket)}
   end
 
-  def render(assigns) do
+  def render(%{state: :playing} = assigns) do
     ~L"""
+    <h1>Score: <%= @score %></h1>
     <div phx-window-keydown="keydown">
       <%= raw svg_head() %>
       <%= raw boxes(@tetromino) %>
+      <%= raw boxes(Map.values(@bottom)) %>
       <%= raw svg_foot() %>
     </div>
+    <%= debug(assigns) %>
+    """
+  end
+
+  def render(%{state: :game_over} = assigns) do
+    ~L"""
+    <h1>Game Over</h1>
     <%= debug(assigns) %>
     """
   end
@@ -120,9 +129,21 @@ defmodule TetrisUIWeb.TetrisLive do
   defp color(%{name: :o}), do: :orange
   defp color(%{name: :z}), do: :grey
 
-  def drop(socket) do
+  def drop(%{assigns: %{brick: old_brick, bottom: bottom, score: old_score}} = socket) do
+    response =
+      Tetris.drop(
+        old_brick,
+        bottom,
+        color(old_brick)
+      )
+
     socket
-    |> assign(brick: Tetris.Brick.down(socket.assigns.brick))
+    |> assign(
+      brick: response.brick,
+      bottom: response.bottom,
+      score: old_score + response.score,
+      state: (response.game_over && :game_over) || :playing
+    )
     |> show()
   end
 
@@ -168,6 +189,7 @@ defmodule TetrisUIWeb.TetrisLive do
     ~L"""
     <pre>
     <%= raw(@tetromino |> inspect) %>
+    <%= raw(@bottom |> inspect) %>
     </pre>
     """
   end
