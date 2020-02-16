@@ -28,7 +28,8 @@ defmodule TetrisTest do
     expected = %{
       brick: Brick.down(brick),
       bottom: %{},
-      score: 0
+      score: 0,
+      game_over: false
     }
 
     actual = drop(brick, bottom, :red)
