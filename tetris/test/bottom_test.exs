@@ -48,6 +48,16 @@ defmodule Tetris.BottomTest do
     assert Enum.count(actual) == 1
   end
 
+  test "full collapse with single row" do
+    row = 20
+    bottom = new_bottom(row, [{{19, 19}, {19, 19, :red}}])
+
+    {actual_count, actual_bottom} = full_collapse(bottom)
+
+    assert actual_count == 1
+    assert {19, 20} in Map.keys(actual_bottom)
+  end
+
   def new_bottom(complete_row, extras) do
     new_extras =
       1..10
