@@ -53,7 +53,7 @@ defmodule Tetris.BrickTest do
       |> Points.move_to_location({1, 1})
       |> Points.move_to_location({0, 1})
 
-    assert actual_points == [{2, 4}, {3, 4}, {4, 4}, {5, 4}]
+    assert actual_points == [{3, 3}, {3, 4}, {3, 5}, {3, 6}]
   end
 
   test "should flip rotate flip and mirror" do
