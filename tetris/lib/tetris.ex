@@ -45,6 +45,7 @@ defmodule Tetris do
     }
   end
 
+  def score(0), do: 0
   def score(count), do: 100 * round(:math.pow(2, count))
 
   def try_left(brick, bottom), do: try_move(brick, bottom, &Brick.left/1)
