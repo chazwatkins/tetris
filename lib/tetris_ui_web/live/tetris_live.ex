@@ -7,7 +7,15 @@ defmodule TetrisUIWeb.TetrisLive do
   @box_height 20
 
   def mount(_params, _session, socket) do
-    {:ok, new_game(socket)}
+    :timer.send_interval(350, self(), :tick)
+    {:ok, start_game(socket)}
+  end
+
+  def render(%{state: :starting} = assigns) do
+    ~L"""
+    <h1>Welcome to Tetris!</h1>
+    <button phx-click="start_game">Start</div>
+    """
   end
 
   def render(%{state: :playing} = assigns) do
@@ -26,10 +34,13 @@ defmodule TetrisUIWeb.TetrisLive do
   def render(%{state: :game_over} = assigns) do
     ~L"""
     <h1>Game Over</h1>
-    <button phx-click="new_game">New Game</button>
+    <h2>Your score: <%= @score %></h2>
+    <button phx-click="start_game">Play Again</button>
     <%= debug(assigns) %>
     """
   end
+
+  defp start_game(socket), do: assign(socket, state: :starting)
 
   defp new_game(socket) do
     assign(
@@ -130,7 +141,9 @@ defmodule TetrisUIWeb.TetrisLive do
   defp color(%{name: :o}), do: :orange
   defp color(%{name: :z}), do: :grey
 
-  def drop(%{assigns: %{brick: old_brick, bottom: bottom, score: old_score}} = socket) do
+  def drop(:playing, socket, fast) do
+    %{state: :playing, brick: old_brick, bottom: bottom, score: old_score} = socket.assigns
+
     response =
       Tetris.drop(
         old_brick,
@@ -138,15 +151,19 @@ defmodule TetrisUIWeb.TetrisLive do
         color(old_brick)
       )
 
+    bonus = (fast && 2) || 0
+
     socket
     |> assign(
       brick: response.brick,
       bottom: response.bottom,
-      score: old_score + response.score,
+      score: old_score + response.score + bonus,
       state: (response.game_over && :game_over) || :playing
     )
     |> show()
   end
+
+  def drop(_not_playing, socket, _speed), do: socket
 
   def move(direction, socket) do
     socket
@@ -179,12 +196,16 @@ defmodule TetrisUIWeb.TetrisLive do
   end
 
   def handle_event("keydown", %{"key" => "ArrowDown"}, socket) do
-    {:noreply, drop(socket)}
+    {:noreply, drop(socket.assigns.state, socket, true)}
   end
 
   def handle_event("keydown", _, socket), do: {:noreply, socket}
 
-  def handle_event("new_game", _, socket), do: {:noreply, new_game(socket)}
+  def handle_event("start_game", _, socket), do: {:noreply, new_game(socket)}
+
+  def handle_info(:tick, socket) do
+    {:noreply, drop(socket.assigns.state, socket, false)}
+  end
 
   def debug(assigns), do: debug(assigns, @debug, Mix.env())
 
