@@ -26,6 +26,7 @@ defmodule TetrisUIWeb.TetrisLive do
   def render(%{state: :game_over} = assigns) do
     ~L"""
     <h1>Game Over</h1>
+    <button phx-click="new_game">New Game</button>
     <%= debug(assigns) %>
     """
   end
@@ -182,6 +183,8 @@ defmodule TetrisUIWeb.TetrisLive do
   end
 
   def handle_event("keydown", _, socket), do: {:noreply, socket}
+
+  def handle_event("new_game", _, socket), do: {:noreply, new_game(socket)}
 
   def debug(assigns), do: debug(assigns, @debug, Mix.env())
 
