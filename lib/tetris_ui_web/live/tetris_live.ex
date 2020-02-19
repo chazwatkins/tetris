@@ -2,12 +2,13 @@ defmodule TetrisUIWeb.TetrisLive do
   use Phoenix.LiveView
   import Phoenix.HTML, only: [raw: 1]
 
-  @debug true
+  @debug false
   @box_width 20
   @box_height 20
+  @brick_speed 500
 
   def mount(_params, _session, socket) do
-    :timer.send_interval(350, self(), :tick)
+    :timer.send_interval(@brick_speed, self(), :tick)
     {:ok, start_game(socket)}
   end
 
@@ -77,7 +78,7 @@ defmodule TetrisUIWeb.TetrisLive do
     """
     <svg
     version="1.0"
-    style="background-color: #F8F8F8"
+    style="background-color: #191919"
     id="Layer_1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -102,6 +103,7 @@ defmodule TetrisUIWeb.TetrisLive do
 
     """
     #{square(point, box_color.light)}
+    #{triangle(point, box_color.dark)}
     """
   end
 
@@ -111,7 +113,7 @@ defmodule TetrisUIWeb.TetrisLive do
     """
     <rect
       x="#{x + 1}" y="#{y + 1}"
-      style="fill:##{shade};"
+      fill="##{shade}"
       width="#{@box_width - 2}" height="#{@box_height - 1}" />
     """
   end
@@ -121,9 +123,9 @@ defmodule TetrisUIWeb.TetrisLive do
     {w, h} = {@box_width, @box_height}
 
     """
-    <polyline
-      style="fill:##{shade};"
-      points="#{x + 1},#{y + 1} #{x + w},#{y + 1} #{x + w},#{y + h} />
+    <polygon
+      fill="##{shade}"
+      points="#{x + 1},#{y + 1} #{x + w},#{y + 1} #{x + w},#{y + h}" />
     """
   end
 
