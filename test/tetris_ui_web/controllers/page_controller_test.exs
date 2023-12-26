@@ -1,8 +1,8 @@
-defmodule TetrisUIWeb.PageControllerTest do
-  use TetrisUIWeb.ConnCase
+defmodule TetrisUiWeb.PageControllerTest do
+  use TetrisUiWeb.ConnCase
 
   test "GET /", %{conn: conn} do
-    conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "Welcome to Phoenix!"
+    conn = get(conn, ~p"/")
+    assert html_response(conn, 200) =~ "Peace of mind from prototype to production"
   end
 end

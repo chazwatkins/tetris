@@ -1,6 +1,6 @@
-defmodule TetrisUI do
+defmodule TetrisUi do
   @moduledoc """
-  Tetris keeps the contexts that define your domain
+  TetrisUi keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

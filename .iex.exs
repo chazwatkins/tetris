@@ -1,1 +1,0 @@
-alias Tetris.{Brick, Points}

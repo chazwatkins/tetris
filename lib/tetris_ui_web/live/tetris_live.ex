@@ -1,4 +1,4 @@
-defmodule TetrisUIWeb.TetrisLive do
+defmodule TetrisUiWeb.TetrisLive do
   use Phoenix.LiveView
   import Phoenix.HTML, only: [raw: 1]
 
@@ -13,14 +13,14 @@ defmodule TetrisUIWeb.TetrisLive do
   end
 
   def render(%{state: :starting} = assigns) do
-    ~L"""
+    ~H"""
     <h1>Welcome to Tetris!</h1>
-    <button phx-click="start_game">Start</div>
+    <button phx-click="start_game">Start</button>
     """
   end
 
   def render(%{state: :playing} = assigns) do
-    ~L"""
+    ~H"""
     <h1>Score: <%= @score %></h1>
     <div phx-window-keydown="keydown">
       <%= raw svg_head() %>
@@ -33,7 +33,7 @@ defmodule TetrisUIWeb.TetrisLive do
   end
 
   def render(%{state: :game_over} = assigns) do
-    ~L"""
+    ~H"""
     <h1>Game Over</h1>
     <h2>Your score: <%= @score %></h2>
     <button phx-click="start_game">Play Again</button>
@@ -212,7 +212,7 @@ defmodule TetrisUIWeb.TetrisLive do
   def debug(assigns), do: debug(assigns, @debug, Mix.env())
 
   def debug(assigns, true, :dev) do
-    ~L"""
+    ~H"""
     <pre>
     <%= raw(@tetromino |> inspect) %>
     <%= raw(@bottom |> inspect) %>
